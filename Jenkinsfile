@@ -1,20 +1,16 @@
 pipeline {
     agent any
-
- tools {
-    maven 'Maven'
-    jdk 'JDK21'    //← same naam jo Jenkins mein rakha
-}
-
+    tools {
+        maven 'Maven'
+        // jdk line HATA DO - Jenkins already Java use kar raha hai
+    }
     stages {
         stage('Pull Code from GitHub') {
             steps {
-                // Checkout code from the implicitly linked SCM repo (like GitHub plugin)
                 checkout scm
                 echo 'Code pulled successfully.'
             }
         }
-
         stage('Build with Maven') {
             steps {
                 echo 'Building the project...'
@@ -27,7 +23,6 @@ pipeline {
                 }
             }
         }
-
         stage('Run Test Cases') {
             steps {
                 echo 'Running JUnit test cases...'
@@ -40,7 +35,6 @@ pipeline {
                 }
             }
         }
-
         stage('Generate Build Artifact (.jar)') {
             steps {
                 echo 'Generating executable JAR...'
@@ -54,10 +48,13 @@ pipeline {
             }
             post {
                 success {
-                    // Archives the generated JAR file so it is available from the Jenkins build page
                     archiveArtifacts artifacts: 'target/*.jar', fingerprint: true
                 }
             }
         }
+    }
+    post {
+        success { echo '✅ BUILD SUCCESS!' }
+        failure { echo '❌ BUILD FAILED!' }
     }
 }
