@@ -1,11 +1,10 @@
 pipeline {
     agent any
 
-    tools {
-        // Assumes Maven is configured in Jenkins under Global Tool Configuration with this name
-        maven 'Maven'
-        jdk 'JDK 21' // Assumes JDK 21 is configured in Jenkins
-    }
+  tools {
+    maven 'Maven'
+    jdk 'java 21'    //← exactly "java 21" — lowercase j, space with 21
+}
 
     stages {
         stage('Pull Code from GitHub') {
