@@ -1,9 +1,9 @@
 pipeline {
     agent any
 
-  tools {
+ tools {
     maven 'Maven'
-    jdk 'java 21'    //← exactly "java 21" — lowercase j, space with 21
+    jdk 'JDK21'    //← same naam jo Jenkins mein rakha
 }
 
     stages {
